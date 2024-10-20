@@ -1,0 +1,17 @@
+<%- include('header') %>
+    <h1>Sửa thông tin người dùng</h1>
+    <form action="" method="post">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" value="<%= data.rows.username %>">
+        <br><label for="fullname">Fullname</label>
+        <input type="text" name="fullname" id="fullname" value="<%= data.rows.fullname %>">
+        <br><label for="address">Address</label>
+        <input type="text" name="address" id="address" value="<%= data.rows.address %>">
+        <br><label for="sex">Sex</label>
+        <input type="text" name="sex" id="sex" value="<%= data.rows.sex %>">
+        <br><label for="email">Email</label>
+        <input type="text" name="email" id="email" value="<%= data.rows.email %>">
+        <button type="submit">Submit</button>
+    </form>
+
+<%- include('footer') %>

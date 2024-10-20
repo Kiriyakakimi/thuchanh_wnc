@@ -5,12 +5,19 @@ import getURL from './getURL'
 import getAboutPage from './controller/AboutController';
 import getHomePage from './controller/HomeController'
 import getContractPage from './controller/ContractController';
-import {getAllUser} from './controller/UserController'
+import UserController from './controller/UserController'
 const router = express.Router();
 const initWebRouter = (app) => {
     router.get('/', getHomePage)
     router.get('/about', getAboutPage)
     router.get('/contract', getContractPage)
+    router.get('/user', UserController.getAllUser)
+    router.get('/user/:username', UserController.detailUser)
+    router.get('/user/edit/:username', UserController.editUser)
+    router.post('/user/edit/:username', UserController.updateUser)
+    router.post('/user/delete/', UserController.deleteUser)
+    router.get('/add', UserController.addUser)
+    router.post('/add', UserController.createUser)
     router.get('/date', (req, res) => {
         res.send(myDateTime())
     })

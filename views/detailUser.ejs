@@ -1,0 +1,27 @@
+<%- include('header') %>
+
+Detail User : <%=data.rows.username%>
+<table class="table">
+    <tbody class="table-groovy-divider">
+        <tr>
+            <th scope="col">Username</th>
+            <td>
+                <%=data.rows.username%>
+            </td>
+        </tr>
+        <tr>
+            <th scope="col">Fullname</th>
+            <td>
+                <%=data.rows.fullname%>
+            </td>
+        </tr>
+        <tr>
+            <th scope="col">Address</th>
+            <td>
+                <%=data.rows.address%>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<%- include('footer') %>
