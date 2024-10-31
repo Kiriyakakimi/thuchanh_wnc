@@ -6,6 +6,7 @@ import getAboutPage from './controller/AboutController';
 import getHomePage from './controller/HomeController'
 import getContractPage from './controller/ContractController';
 import UserController from './controller/UserController'
+import LoginController from './controller/LoginController';
 const router = express.Router();
 const initWebRouter = (app) => {
     router.get('/', getHomePage)
@@ -18,6 +19,11 @@ const initWebRouter = (app) => {
     router.post('/user/delete/', UserController.deleteUser)
     router.get('/add', UserController.addUser)
     router.post('/add', UserController.createUser)
+    router.get('/login', LoginController.renderLoginPage)
+    router.post('/login', LoginController.handleLogin)
+    router.get('/', (req, res) => {
+        res.render({ user: req.session.user });
+    });
     router.get('/date', (req, res) => {
         res.send(myDateTime())
     })
@@ -27,6 +33,17 @@ const initWebRouter = (app) => {
     router.get('/ejs', (req, res) => {
         res.render("test")
     })
+    router.get('/set-session', (req, res) => {
+        req.session.user = {
+            username: 'admin',
+            password: '123456'
+        };
+        res.send('Session set');
+    });
+
+    router.get('/get-session', (req, res) => {
+        res.send(req.session);
+    });
     return app.use('/', router)
 }
 export default initWebRouter
