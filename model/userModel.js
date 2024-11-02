@@ -13,11 +13,10 @@ const updateUser = async (username, fullname, address,sex,email) => {
 const deleteUser = async (username) => {
     await pool.execute('DELETE FROM `users` WHERE `username` = ?',[username])
 }
-const insertUser = async (username, password, fullname, address,sex,email) => {
-    await pool.execute('INSERT INTO `users`(`username`, `password`, `fullname`, `address`, `sex`, `email`) VALUES (?,?,?,?,?,?)',[username, password, fullname, address,sex,email])
+const insertUser = async (username, password, fullname, address,sex,email, role =1 ) => {
+    await pool.execute('INSERT INTO `users`(`username`, `password`, `fullname`, `address`, `sex`, `email`,`role`) VALUES (?,?,?,?,?,?,?)',[username, password, fullname, address,sex,email,role])
 }
 const getUserByUsername = async (username) => {
     const [rows, fields] = await pool.execute('SELECT * FROM `users` WHERE `username` = ?', [username]);
-    return rows[0];
 };
 export default {getUserByUsername,insertUser,getAllUser,detailUser,updateUser,deleteUser}
