@@ -7,20 +7,23 @@ import getHomePage from './controller/HomeController'
 import getContractPage from './controller/ContractController';
 import UserController from './controller/UserController'
 import LoginController from './controller/LoginController';
+import middleware, { checkRole } from './middleware/middleware';
 const router = express.Router();
 const initWebRouter = (app) => {
     router.get('/', getHomePage)
     router.get('/about', getAboutPage)
     router.get('/contract', getContractPage)
-    router.get('/user', UserController.getAllUser)
-    router.get('/user/:username', UserController.detailUser)
-    router.get('/user/edit/:username', UserController.editUser)
-    router.post('/user/edit/:username', UserController.updateUser)
-    router.post('/user/delete/', UserController.deleteUser)
+    router.get('/user', middleware.checkRole(0), UserController.getAllUser)
+    router.get('/user/:username',middleware.checkRole([0,1]), UserController.detailUser)
+    router.get('/user/edit/:username',middleware.checkRole([0,1]), UserController.editUser)
+    router.post('/user/edit/:username',middleware.checkRole([0,1]), UserController.updateUser)
+    router.post('/user/delete/', middleware.checkRole(0), UserController.deleteUser)
     router.get('/add', UserController.addUser)
-    router.post('/add', UserController.createUser)
-    router.get('/login', LoginController.renderLoginPage)
-    router.post('/login', LoginController.handleLogin)
+    router.post('/add',middleware.checkRole(0), UserController.createUser)
+    router.post('/login', LoginController.Login)
+    router.get('/login', LoginController.Login)
+    router.get('/logout', LoginController.Logout)
+
     router.get('/', (req, res) => {
         res.render({ user: req.session.user });
     });

@@ -17,6 +17,7 @@ const insertUser = async (username, password, fullname, address,sex,email, role 
     await pool.execute('INSERT INTO `users`(`username`, `password`, `fullname`, `address`, `sex`, `email`,`role`) VALUES (?,?,?,?,?,?,?)',[username, password, fullname, address,sex,email,role])
 }
 const getUserByUsername = async (username) => {
-    const [rows, fields] = await pool.execute('SELECT * FROM `users` WHERE `username` = ?', [username]);
+    const [user] = await pool.execute('SELECT * FROM `users` WHERE username = ?',[username])
+    return user[0]
 };
 export default {getUserByUsername,insertUser,getAllUser,detailUser,updateUser,deleteUser}

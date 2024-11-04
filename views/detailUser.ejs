@@ -1,27 +1,37 @@
 <%- include('header') %>
 
-Detail User : <%=data.rows.username%>
-<table class="table">
-    <tbody class="table-groovy-divider">
-        <tr>
-            <th scope="col">Username</th>
-            <td>
-                <%=data.rows.username%>
-            </td>
-        </tr>
-        <tr>
-            <th scope="col">Fullname</th>
-            <td>
-                <%=data.rows.fullname%>
-            </td>
-        </tr>
-        <tr>
-            <th scope="col">Address</th>
-            <td>
-                <%=data.rows.address%>
-            </td>
-        </tr>
-    </tbody>
-</table>
+    Detail User : <%=data.rows.username%>
+        <table class="table">
+            <tbody class="table-groovy-divider">
+                <tr>
+                    <th scope="col">Username</th>
+                    <td>
+                        <%=data.rows.username%>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Fullname</th>
+                    <td>
+                        <%=data.rows.fullname%>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Address</th>
+                    <td>
+                        <%=data.rows.address%>
+                    </td>
+                </tr>
+                <tr>
+                    <a href="/user/edit/<%= data.rows.username %>"><span class="setting"><i class="fa fa-edit"
+                                aria-hidden="true"></i></span></a>
+                    <form action="/user/delete/" method="post" class="del">
+                        <input type="hidden" value="<%= data.rows.username %>" name="username">
+                        <label for="<%= data.rows.username %>"><span class="setting"><i class="fa fa-trash"
+                                    aria-hidden="true"></i></span></label>
+                        <input type="submit" id="<%= data.rows.username %>" style="display: none;" value="Xóa" />
+                    </form>
+                </tr>
+            </tbody>
+        </table>
 
-<%- include('footer') %>
+        <%- include('footer') %>
