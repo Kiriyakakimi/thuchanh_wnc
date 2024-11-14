@@ -8,6 +8,7 @@ import getContractPage from './controller/ContractController';
 import UserController from './controller/UserController'
 import LoginController from './controller/LoginController';
 import middleware, { checkRole } from './middleware/middleware';
+import productController from './controller/productController';
 const router = express.Router();
 const initWebRouter = (app) => {
     router.get('/', getHomePage)
@@ -23,9 +24,13 @@ const initWebRouter = (app) => {
     router.post('/login', LoginController.Login)
     router.get('/login', LoginController.Login)
     router.get('/logout', LoginController.Logout)
+    router.get('/product', middleware.checkRole([0,1]), productController.getAllProducts)
+    router.get('/product/:masp', middleware.checkRole([0,1]), productController.getProductDetails);   
+    router.get('/product/:idnhom/product', middleware.checkRole([0,1]), productController.getProductsByGroup)
+
 
     router.get('/', (req, res) => {
-        res.render({ user: req.session.user });
+        res.render({ user: req.session.user });   
     });
     router.get('/date', (req, res) => {
         res.send(myDateTime())
@@ -49,4 +54,4 @@ const initWebRouter = (app) => {
     });
     return app.use('/', router)
 }
-export default initWebRouter
+export default initWebRouter   

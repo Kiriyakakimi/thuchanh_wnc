@@ -1,0 +1,41 @@
+<%- include('header') %>
+
+<div class="container mt-4">
+    <h1 class="text-center">Danh Sách Sản Phẩm</h1>
+    <form method="GET" action="/product/:idnhom/product">
+        <div class="mb-3">
+            <label for="idnhom" class="form-label">Chọn Nhóm Sản Phẩm:</label>
+            <select name="idnhom" id="idnhom" class="form-select" onchange="this.form.submit()">
+                <option value="">Tất cả</option>
+                <% for(let i = 0; i < data.group.length; i++) { %>
+                    <option value="<%= data.group[i].idnhom %>"><%= data.group[i].ten %></option>
+                <% } %>
+            </select>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="row">Hình Ảnh</th>
+                <th scope="row">Mã Sản Phẩm</th>
+                <th scope="row">Tên Sản Phẩm</th>
+                <th scope="row">Giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < data.rows.length; i++) { %>
+                <tr>
+                    <th scope="row"><%= i + 1 %></th>
+                    <td><img src="<%= data.rows[i].hinhanh %>" alt="Hình ảnh sản phẩm" style="width: 200px; height: auto;"></td>
+                    <td><%= data.rows[i].masp %></td>
+                    <td><%= data.rows[i].ten %></td>
+                    <td><%= data.rows[i].gia %>đ</td>
+                    <td><a href="/product/<%= data.rows[i].masp %>">Chi tiết</a></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('footer') %>
