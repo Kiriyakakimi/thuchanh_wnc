@@ -8,7 +8,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductDetails = async (req, res) => {
     const { masp } = req.params;
-    const product = await productModel.getProductById(masp);
+    const product = await productModel.getProductDetails(masp);
     res.render("productdetail", { data: { title: "Chi tiết sản phẩm", rows: product }, session: req.session });
 };
 

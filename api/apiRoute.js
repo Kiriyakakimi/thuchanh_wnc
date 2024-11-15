@@ -1,6 +1,7 @@
 import express from 'express';
 import ApiUsercontroller from '../controller/ApiUsercontroller';
 import ApiLogincontroller from '../controller/ApiLoginController';
+import ApiProductcontroller from '../controller/ApiProductController';
 const router = express.Router();
 const initApiRouter = (app) => {
     router.get('/user', ApiUsercontroller.getAllUser)
@@ -13,6 +14,10 @@ const initApiRouter = (app) => {
     router.post('/login', ApiLogincontroller.Login)
     router.get('/login', ApiLogincontroller.Login)
     router.get('/logout', ApiLogincontroller.Logout)
+    router.get('/product', ApiProductcontroller.getAllProducts)
+    router.get('/product/:masp', ApiProductcontroller.getProductDetails)
+    router.get('/product/group/:idnhom', ApiProductcontroller.getProductsByGroup)
+    router.get('/group', ApiProductcontroller.getAllGroups)
     return app.use('/api', router)
 }
 export default initApiRouter

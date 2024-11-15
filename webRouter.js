@@ -1,3 +1,4 @@
+
 import express from 'express';
 import dotenv from 'dotenv/config'
 import myDateTime from './date'
@@ -8,7 +9,7 @@ import getContractPage from './controller/ContractController';
 import UserController from './controller/UserController'
 import LoginController from './controller/LoginController';
 import middleware, { checkRole } from './middleware/middleware';
-import productController from './controller/productController';
+import productController from './controller/ProductController';
 const router = express.Router();
 const initWebRouter = (app) => {
     router.get('/', getHomePage)
@@ -26,7 +27,7 @@ const initWebRouter = (app) => {
     router.get('/logout', LoginController.Logout)
     router.get('/product', middleware.checkRole([0,1]), productController.getAllProducts)
     router.get('/product/:masp', middleware.checkRole([0,1]), productController.getProductDetails);   
-    router.get('/product/:idnhom/product', middleware.checkRole([0,1]), productController.getProductsByGroup)
+    router.get('/product/group/product', middleware.checkRole([0,1]), productController.getProductsByGroup)
 
 
     router.get('/', (req, res) => {
@@ -54,4 +55,4 @@ const initWebRouter = (app) => {
     });
     return app.use('/', router)
 }
-export default initWebRouter   
+export default initWebRouter

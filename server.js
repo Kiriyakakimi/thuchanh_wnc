@@ -5,8 +5,17 @@ import initApiRouter from './api/apiRoute'
 import path from 'path'
 import bodyParser from 'body-parser'
 import session from 'express-session'
+import cors from 'cors'
 
 const app = express()
+
+app.use(cors(
+    {
+        origin: 'http://localhost:3000',
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    }
+))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
@@ -15,6 +24,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: false }
 }))
+
 app.use((req, res, next) =>{
     res.locals.user = req.session.user || null;
   next();

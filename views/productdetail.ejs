@@ -1,17 +1,20 @@
 <%- include('header') %>
 
 <div class="container mt-4">
+    <% for(let i = 0; i < data.rows.length; i++) { %>
+
     <h1 class="text-center">Chi Tiết Sản Phẩm</h1>
     <div class="card">
-        <img src="<%= data.rows.hinhanh %>" class="card-img-top" alt="Hình ảnh sản phẩm">
+        <img src="<%= data.rows[i].hinhanh %>" class="card-img-top" alt="Hình ảnh sản phẩm">
         <div class="card-body">
-            <h5 class="card-title"><%= data.rows.ten %></h5>
-            <p class="card-text">Mã sản phẩm: <%= data.rows.masp %></p>
-            <p class="card-text">Giá: <%= data.rows.gia %>đ</p>
-            <p class="card-text">Mô tả: <%= data.rows.mota %></p>
+            <h5 class="card-title"><%= data.rows[i].ten %></h5>
+            <p class="card-text">Mã sản phẩm: <%= data.rows[i].masp %></p>
+            <p class="card-text">Giá: <%= data.rows[i].gia %>đ</p>
+            <p class="card-text">Mô tả: <%= data.rows[i].mota %></p>
             <a href="/product" class="btn btn-primary">Quay lại danh sách sản phẩm</a>
         </div>
     </div>
+    <%}%>
 </div>
 
 <%- include('footer') %>   
