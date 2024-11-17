@@ -35,4 +35,31 @@ const createUser = async (req, res) => {
     await userModel.insertUser(username, hashedPassword,fullname, address, sex, email)
     return res.json({message:"success"})
 }
-export default { createUser, addUser, detailUser, getAllUser, editUser, updateUser, deleteUser }
+const getUserInfor = async (req, res) => {
+    try {
+        // Lấy username từ token đã được xác thực
+        const username = req.user?.username;
+        
+        if (!username) {
+            return res.status(400).json({
+                message: 'Không tìm thấy thông tin người dùng trong token'
+            });
+        }
+
+        const user = await userModel.getUserByUsername(username);
+        
+        if (!user) {
+            return res.status(404).json({
+                message: 'Không tìm thấy thông tin người dùng'
+            });
+        }
+
+        // Loại bỏ password trước khi gửi về client
+        const { password, ...userInfo } = user;
+        return res.status(200).json(userInfo);
+    } catch (error) {
+        return res.status(500).json();
+    }
+};
+export default { getUserInfor, getAllUser, detailUser, editUser, updateUser, deleteUser, addUser, createUser }
+  
